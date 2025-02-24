@@ -17,7 +17,7 @@ exports.addUserController = async (req, res) => {
         } else {
             const encryptedPassword = await bcrypt.hash(password, 10)
             const newUser = new users({
-                username, email, password: encryptedPassword
+                username, email, password: encryptedPassword,profileImage:''
             })
             await newUser.save()
             res.status(200).json({ message: newUser })
@@ -50,4 +50,19 @@ exports.loginUserController = async (req, res) => {
 
     }
 
+}
+
+// edit user
+exports.editUserController=async(req,res)=>{
+    const {profileImage}=req.body
+    const userId=req.userId
+
+    try {
+        const existingUser = await users.findById({_id:userId})
+        existingUser.profileImage=profileImage
+        await existingUser.save()
+        res.status(202).json(existingUser)
+    } catch (error) {
+     res.status(404).json({message:error.message})   
+    }
 }
