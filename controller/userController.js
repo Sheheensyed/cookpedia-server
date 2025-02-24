@@ -1,6 +1,7 @@
 const users = require('../model/userModel')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const download = require('../model/downloadRecipeModel');
 
 // add user
 exports.addUserController = async (req, res) => {
@@ -65,4 +66,30 @@ exports.editUserController=async(req,res)=>{
     } catch (error) {
      res.status(404).json({message:error.message})   
     }
+}
+
+// get all users
+exports.getAllUsersController=async(req,res)=>{
+    console.log(`Inside get all user controller`);
+
+    try {
+        const allUsers=await users.find({role:'User'})
+        res.status(202).json(allUsers)
+    } catch (error) {
+        res.status(401).json({message:error.message})
+    }
+    
+}
+
+// download-list
+exports.getAllDownloadListController=async(req,res)=>{
+    console.log(`get all download list controller`);
+
+    try {
+        const allDownloads=await download.find()
+        res.status(202).json(allDownloads)
+    } catch (error) {
+        res.status(404).json({message:error.message})
+    }
+    
 }
