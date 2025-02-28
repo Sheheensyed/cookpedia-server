@@ -50,3 +50,15 @@ exports.updateTestimonialController=async(req,res)=>{
     }
     
 }
+
+// get all approved feedback - guest user
+exports.getAllApprovedFeedbackController=async(req,res)=>{
+    console.log(`Inside get All Approved Feedback Controller`);
+    
+    try {
+        allApprovedFeedback = await testimonials.find({status:"Approved"})
+        res.status(202).json(allApprovedFeedback)
+    } catch (error) {
+        res.status(404).json({message:error.message})
+    }
+}

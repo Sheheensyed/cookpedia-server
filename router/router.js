@@ -56,5 +56,16 @@ router.get("/testimonials",jwtMiddleware,testimonialController.getAllTestimonial
 // update testimonial
 router.get('/feedback/:id/update',jwtMiddleware,testimonialController.updateTestimonialController)
 
+// get approved feedback
+router.get('/approved-feedback',testimonialController.getAllApprovedFeedbackController)
+
+// add recipe
+router.post('/add-recipe',jwtMiddleware,recipeController.addRecipeController)
+
+// update recipe
+router.put("/recipe/:id/edit",jwtMiddleware,recipeController.editRecipeController)
+
+// delete recipe
+router.delete('/recipe/:id/delete',jwtMiddleware,recipeController.deleteRecipeController)
 
 module.exports=router
